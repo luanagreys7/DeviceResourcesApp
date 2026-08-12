@@ -1,6 +1,12 @@
 // Importa as bibliotecas necessárias
 import React, { useState } from 'react';
-import { View, Button, Image, Alert, StyleSheet } from 'react-native';
+import {
+  View,
+  Button,
+  Image,
+  Alert,
+  StyleSheet,
+} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
 // Define o componente funcional
@@ -11,7 +17,8 @@ const ImagePickerComponent = () => {
   // Função para solicitar permissão e abrir a galeria
   const selectImage = async () => {
     // Solicita permissão para acessar a galeria
-    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    const { status } =
+      await ImagePicker.requestMediaLibraryPermissionsAsync();
 
     // Verifica se a permissão foi concedida
     if (status !== 'granted') {
@@ -30,19 +37,21 @@ const ImagePickerComponent = () => {
         quality: 1,
       });
 
+    // Verifica se o usuário cancelou a operação
     if (result.canceled) {
-    Alert.alert(
-      'Operação Cancelada',
-      'Você cancelou a seleção de imagem.'
-    );
-    return;
-  }
+      Alert.alert(
+        'Operação Cancelada',
+        'Você cancelou a seleção de imagem.'
+      );
+      return;
+    }
 
-  setImageUri(result.assets[0].uri);
-};
+    // Define a URI da imagem selecionada no estado
+    setImageUri(result.assets[0].uri);
+  };
 
   return (
-    // Contêiner principal com estilo centralizado
+    // Contêiner principal
     <View style={styles.container}>
 
       {/* Botão para selecionar imagem */}
@@ -66,17 +75,16 @@ const ImagePickerComponent = () => {
 // Define os estilos utilizados no componente
 const styles = StyleSheet.create({
   container: {
-    flex: 1, // Ocupa todo o espaço disponível
-    justifyContent: 'center', // Centraliza verticalmente
-    alignItems: 'center', // Centraliza horizontalmente
-    padding: 20, // Espaçamento interno
-    backgroundColor: '#fff', // Cor de fundo branca
+    padding: 20,
+    alignItems: 'center',
+    backgroundColor: '#fff',
   },
+
   image: {
-    width: 200, // Largura da imagem
-    height: 200, // Altura da imagem
-    marginTop: 20, // Espaçamento acima da imagem
-    borderRadius: 10, // Bordas arredondadas
+    width: 200,
+    height: 200,
+    marginTop: 20,
+    borderRadius: 10,
   },
 });
 

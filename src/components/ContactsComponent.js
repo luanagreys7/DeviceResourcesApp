@@ -1,8 +1,13 @@
-// src/components/ContactsComponent.js
-
 // Importa as bibliotecas necessárias
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, Button, Alert, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  FlatList,
+  Button,
+  Alert,
+  StyleSheet,
+} from 'react-native';
 import * as Contacts from 'expo-contacts';
 
 // Define o componente funcional
@@ -13,7 +18,8 @@ const ContactsComponent = () => {
   // Função para solicitar permissão e carregar contatos
   const loadContacts = async () => {
     // Solicita permissão para acessar contatos
-    const { status } = await Contacts.requestPermissionsAsync();
+    const { status } =
+      await Contacts.requestPermissionsAsync();
 
     // Verifica se a permissão foi concedida
     if (status !== 'granted') {
@@ -25,17 +31,17 @@ const ContactsComponent = () => {
     }
 
     try {
-      // Obtém todos os contatos do dispositivo
+      // Obtém os contatos do dispositivo
       const { data } = await Contacts.getContactsAsync({
         fields: [
           Contacts.Fields.Emails,
-          Contacts.Fields.PhoneNumbers
+          Contacts.Fields.PhoneNumbers,
         ],
       });
 
       // Verifica se há contatos
       if (data.length > 0) {
-        setContacts(data); // Atualiza o estado com os contatos obtidos
+        setContacts(data);
       } else {
         Alert.alert(
           'Sem Contatos',
@@ -48,6 +54,7 @@ const ContactsComponent = () => {
         'Erro',
         'Ocorreu um erro ao carregar os contatos.'
       );
+
       console.error(error);
     }
   };
@@ -73,7 +80,7 @@ const ContactsComponent = () => {
             key={index}
             style={styles.contactDetail}
           >
-            ☎ {phone.number}
+            📞 {phone.number}
           </Text>
         ))}
 
@@ -84,7 +91,7 @@ const ContactsComponent = () => {
             key={index}
             style={styles.contactDetail}
           >
-            ✉ {email.email}
+            ✉️ {email.email}
           </Text>
         ))}
 
@@ -92,7 +99,6 @@ const ContactsComponent = () => {
   );
 
   return (
-    // Contêiner principal com estilo de preenchimento
     <View style={styles.container}>
 
       {/* Botão para recarregar os contatos manualmente */}
@@ -101,7 +107,7 @@ const ContactsComponent = () => {
         onPress={loadContacts}
       />
 
-      {/* Lista de contatos exibida usando FlatList */}
+      {/* Lista otimizada de contatos */}
       <FlatList
         data={contacts}
         keyExtractor={(item) => item.id}
@@ -116,26 +122,30 @@ const ContactsComponent = () => {
 // Define os estilos utilizados no componente
 const styles = StyleSheet.create({
   container: {
-    flex: 1, // Ocupa todo o espaço disponível
-    padding: 20, // Espaçamento interno
-    backgroundColor: '#fff', // Cor de fundo branca
+    flex: 1,
+    padding: 20,
+    backgroundColor: '#fff',
   },
+
   list: {
-    marginTop: 20, // Espaçamento acima da lista
+    marginTop: 20,
   },
+
   contactItem: {
-    padding: 15, // Espaçamento interno
-    borderBottomWidth: 1, // Linha de separação inferior
-    borderColor: '#eee', // Cor da linha de separação
+    padding: 15,
+    borderBottomWidth: 1,
+    borderColor: '#eee',
   },
+
   contactName: {
-    fontSize: 18, // Tamanho da fonte
-    fontWeight: 'bold', // Peso da fonte
+    fontSize: 18,
+    fontWeight: 'bold',
   },
+
   contactDetail: {
-    fontSize: 14, // Tamanho da fonte
-    color: '#555', // Cor do texto
-    marginTop: 5, // Espaçamento acima do texto
+    fontSize: 14,
+    color: '#555',
+    marginTop: 5,
   },
 });
 
