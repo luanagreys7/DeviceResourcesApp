@@ -30,18 +30,16 @@ const ImagePickerComponent = () => {
         quality: 1,
       });
 
-    // Verifica se o usuário cancelou a operação
-    if (result.cancelled) {
-      Alert.alert(
-        'Operação Cancelada',
-        'Você cancelou a seleção de imagem.'
-      );
-      return;
-    }
+    if (result.canceled) {
+    Alert.alert(
+      'Operação Cancelada',
+      'Você cancelou a seleção de imagem.'
+    );
+    return;
+  }
 
-    // Define a URI da imagem selecionada no estado
-    setImageUri(result.uri);
-  };
+  setImageUri(result.assets[0].uri);
+};
 
   return (
     // Contêiner principal com estilo centralizado
