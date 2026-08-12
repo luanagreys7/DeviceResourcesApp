@@ -36,6 +36,7 @@ DeviceResourcesApp/
 ├── package-lock.json
 ├── .gitignore
 └── README.md
+```
 
 ## Requisitos
 
